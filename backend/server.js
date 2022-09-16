@@ -1,5 +1,5 @@
 const express = require("express")
-
+console.log('New data')
 //create an app
 const server = express()
 
@@ -15,7 +15,14 @@ const contactRouter = require("./routes/contact")
 const registerRouter = require("./routes/register-user")
 
 server.use(express.json())
+
+
+//Endpoints
+
+// 1. Home
 server.use("/", indexRouter)
+
+// 2. Register User
 server.use("/register-user", registerRouter)
 
 
