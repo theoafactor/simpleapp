@@ -1,20 +1,16 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
 
-function Register(props){
+function BusinessRegister(props){
 
     const fullnameRef = useRef(null)
     const usernameRef = useRef(null)
     const passwordRef = useRef(null)
-    const emailRef = useRef(null)
-
-    const [message, setMessage] = useState({ info: null})
 
 
     const registerUser = () => {
         let fullname = fullnameRef.current.value
-        let email = emailRef.current.value;
         let username = usernameRef.current.value
         let password = passwordRef.current.value
 
@@ -22,17 +18,11 @@ function Register(props){
             //you can proceed
             axios.post("/register-user", {
                 fullname,
-                email,
                 username, 
                 password
             }).then( (feedback) => {
 
-                console.log(feedback) //feedback.data.message
-                setMessage({
-                    info: feedback.data.message
-                })
-
-
+                console.log(feedback)
 
             } )
 
@@ -46,10 +36,7 @@ function Register(props){
 
     return (
         <div>
-            <h3>Register</h3>
-
-                <h6>{message.info}</h6>
-
+            <h3>Register your business</h3>
             <form>
             <div>
                     <label>Full name</label>
@@ -57,8 +44,13 @@ function Register(props){
                 </div>
 
                 <div>
-                    <label>Email</label>
-                    <input type='email' ref={emailRef}/>
+                    <label>Business name</label>
+                    <input type='text' ref={fullnameRef} />
+                </div>
+
+                <div>
+                    <label>Business email</label>
+                    <input type='email' ref={fullnameRef} />
                 </div>
                 
                 <div>
@@ -72,11 +64,11 @@ function Register(props){
                 </div>
 
                 <div>
-                    <button type='button' onClick={() => registerUser()}>Register</button>
+                    <button type='button' onClick={() => registerUser()}>Register Business</button>
                 </div>
 
                 <div>
-                   <Link to="/login">Login</Link>
+                   <Link to="/business/login">Login</Link>
                 </div>
             </form>
         </div>
@@ -86,4 +78,4 @@ function Register(props){
 
 }
 
-export default Register
+export default BusinessRegister

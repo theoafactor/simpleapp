@@ -3,31 +3,46 @@ import './App.css';
 import { useState } from "react";
 import Login from "./components/Login"
 import Register from "./components/Register"
+import AdminLogin from './components/AdminLogin';
+import BusinessLogin from "./components/BusinessLogin";
+import BusinessRegister from './components/BusinessRegister';
+import { Routes, Route } from "react-router-dom"
 
 function App() {
 
   const [appState, setAppState] = useState({
-        is_user_logged: false,
+        is_user_logged_in: false,
+        user_data: null,
         current_auth_page: 'login'
   })
 
-  const showAuthPage = (pagename) => {
 
-      setAppState({
-          current_auth_page: pagename
-      })
+  const changeLoginStatus = (user_data) => {
+
+    setAppState({
+      is_user_logged_in: true,
+      user_data: user_data
+    })
+
 
   }
 
 
+
+
+ 
+
+
   return (
-    <div className="App">
-      <div className="App-header">
+        <Routes>
+            <Route path="/" element={<Login changeLoginStatusProp={changeLoginStatus}/>}></Route>
+            <Route path="/login" element={<Login changeLoginStatusProp={changeLoginStatus}/>}></Route>
+            <Route path="/register" element={<Register />}></Route>
 
-            { appState.current_auth_page === "login" ? <Login showAuthPageProp={showAuthPage}/> : <Register showAuthPageProp={showAuthPage} /> }
-
-      </div>
-    </div>
+            <Route path="/business/login" element={<BusinessLogin />}></Route>
+            <Route path="/business/register" element={<BusinessRegister />}></Route>
+            <Route path="/admin/login" element={<AdminLogin />}></Route>
+        </Routes>
   );
 }
 

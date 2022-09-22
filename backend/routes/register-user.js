@@ -12,7 +12,8 @@ const Router = express.Router()
 const registerRouter = Router.post("/", async function(request, response, next){
 
                         //console.log(request.body)
-
+                        const fullname = request.body.fullname;
+                        const username = request.body.username;
                         const email = request.body.email
                         const password = request.body.password
 
@@ -29,15 +30,12 @@ const registerRouter = Router.post("/", async function(request, response, next){
                                 data: []
                             })
                         }else{
-                            //connect to m
-                            // response.send({
-                            //     message: "User does not exist. Have you registered?",
-                            //     data: []
-                            // })
                             const hashedPassword = await bcrypt.hash(password, 10)
 
                             //save to database
                             const registration_feedback = await client.db(process.env.DB_NAME).collection("users").insertOne({
+                                fullname: fullname,
+                                username: username,
                                 email: email,
                                 password: hashedPassword
                             })
